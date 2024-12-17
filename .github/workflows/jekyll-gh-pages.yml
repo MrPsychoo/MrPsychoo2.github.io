@@ -17,6 +17,19 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  # Verifica Link job
+  link_checker:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+      - name: Install Link Checker
+        run: sudo apt-get install linkchecker
+      - name: Run Link Checker
+        run: linkchecker https://mrpsychoo.github.io/MrPsychoo2.github.io/
+      - name: Check links in Markdown files
+        run: linkchecker --file-output=csv --verbose --check-extern markdown/*.md # Substitua pelo caminho dos seus arquivos Markdown
+
   # Build job
   build:
     runs-on: ubuntu-latest
